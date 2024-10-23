@@ -1,0 +1,16 @@
+[package]
+name = "cosmic-ext-alternative-startup"
+authors = ["Victoria Brekenfeld <github@drakulix.de>"]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-only"
+
+[dependencies]
+anyhow = "1.0.91"
+calloop = "0.14.1"
+rustix = "0.38.37"
+sendfd = "0.4.3"
+serde = { version = "1.0.213", features = ["derive"] }
+serde_json = "1.0.132"
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
