@@ -1,34 +1,24 @@
 {
-  description = "Alternative entry point for the COSMIC session's compositor IPC interface";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    crane.url = "github:ipetkov/crane";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs: with inputs;
+  outputs = { self, nixpkgs, crane, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
-          inherit system overlays;
-        };
-        overlays = [ (import rust-overlay) ];
-      in {
-        packages = {
-          default = pkgs.rustPlatform.buildRustPackage {
-            pname = "cosmic-ext-alternative-startup";
-            version = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).package.version;
-            src = ./.;
+        pkgs = nixpkgs.legacyPackages.${system};
+        craneLib = crane.mkLib pkgs;
+      in
+    {
+      packages.default = craneLib.buildPackage {
+        src = craneLib.cleanCargoSource ./.;
 
-            cargoLock = {
-              lockFile = ./Cargo.lock;
-            };
-
-            nativeBuildInputs = [ pkgs.pkg-config ];
-            PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-          };
-        };
-      }
-    );
+        # Add extra inputs here or any other derivation settings
+        # doCheck = true;
+        # buildInputs = [];
+        # nativeBuildInputs = [];
+      };
+    });
 }
