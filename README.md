@@ -27,7 +27,7 @@ and just expose privileged protocols to all non-sandboxed clients.
 ## So how do I use it?
 
 Depends on the compositor you want to use with COSMIC!
-In general please take a look at [`cosmic-ext-extra-sessions`](https://github.com/drakulix/cosmic-ext-extra-sessions`) instead.
+In general please take a look at [`cosmic-ext-extra-sessions`](https://github.com/drakulix/cosmic-ext-extra-sessions) instead.
 
 But e.g. in sway you could add `exec cosmic-ext-alternative-startup` to the end of your configuration file
 to be able to launch a sway cosmic session using `cosmic-session sway`.
