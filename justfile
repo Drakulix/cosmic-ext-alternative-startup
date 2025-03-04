@@ -37,12 +37,12 @@ check-json: (check '--message-format=json')
 
 # Installs files
 install:
-    install -Dm0755 {{bin-src}} {{bin-dst}}
+    sudo install -Dm0755 {{bin-src}} {{bin-dst}}
 
 # Uninstalls installed files
 uninstall:
-    rm {{bin-dst}}
-    
+    sudo rm {{bin-dst}}
+
 # Vendor dependencies locally
 vendor:
     mkdir -p .cargo
